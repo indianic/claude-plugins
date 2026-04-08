@@ -1,0 +1,39 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "cohort-work",
+  "version": "1.0.0",
+  "description": "IndiaNIC Claude Code plugins — design-system extraction and team productivity tools. Powered by cohort.indianic.dev.",
+  "owner": {
+    "name": "IndiaNIC",
+    "url": "https://www.indianic.com/",
+    "email": "sales@indianic.com"
+  },
+  "metadata": {
+    "homepage": "https://cohort.indianic.dev/plugin",
+    "repository": "https://github.com/indianic/claude-plugins"
+  },
+  "plugins": [
+    {
+      "name": "create-design-system",
+      "description": "Extract a production-ready design system from any public website. Generates a 4-file DESIGN.md folder (DESIGN.md, README.md, preview.html, preview-dark.html) with a 9-section spec, real hex tokens, typography, and interactive light + dark previews. Matches the awesome-design-md repo format.",
+      "version": "1.0.0",
+      "author": {
+        "name": "IndiaNIC",
+        "url": "https://www.indianic.com/"
+      },
+      "homepage": "https://cohort.indianic.dev/plugin",
+      "license": "MIT",
+      "category": "design",
+      "keywords": [
+        "design-system",
+        "design-md",
+        "awesome-design-md",
+        "design-tokens",
+        "web-scraping",
+        "frontend-design",
+        "ui-kit"
+      ],
+      "source": "./plugins/create-design-system"
+    }
+  ]
+}
