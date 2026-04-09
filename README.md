@@ -200,6 +200,18 @@ For internal IndiaNIC contributions, ping `@skmundra` or the `#cohort-dev` chann
 
 ---
 
+## 📝 Changelog
+
+### `1.0.1` — 2026-04-09
+- Marketplace manifest source path hardened to `./plugins/create-design-system` so cached clones from the earliest exploration commits refresh cleanly. If you hit `Source path does not exist` on `1.0.0`, run `/plugin marketplace update cohort-work` (or remove + re-add the marketplace) and try again.
+- No plugin-content changes — `create-design-system` behaviour is identical to `1.0.0`.
+
+### `1.0.0` — 2026-04-08
+- Initial public release of the `cohort-work` marketplace.
+- Ships `create-design-system` — 9-section `DESIGN.md` generator with light + dark interactive previews.
+
+---
+
 ## 📄 License
 
 MIT © [IndiaNIC](https://www.indianic.com/) — see [LICENSE](LICENSE) for details. Plugin content may carry additional credits; see each plugin's individual README.

@@ -1,6 +1,6 @@
 {
   "name": "create-design-system",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Extract a design system from any public website and generate a 4-file DESIGN.md folder (DESIGN.md, README.md, preview.html, preview-dark.html) matching the awesome-design-md repo format. Runs interactively (prompts for URL, folder name, theme mode) or non-interactively via /create-design-system <url>.",
   "author": {
     "name": "IndiaNIC",
