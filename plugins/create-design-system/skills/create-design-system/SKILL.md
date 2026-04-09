@@ -54,7 +54,31 @@ Use `WebFetch` in **parallel** (single message, multiple tool calls) to gather d
 
 If a page 404s or is behind auth, skip it and rely on the homepage. Never fail the whole workflow because a secondary page is missing.
 
-If `WebFetch` cannot reach the URL at all, stop and ask the user whether to proceed with a best-guess design based on the brand name (clearly marked as speculative in the DESIGN.md).
+#### Fallback: Jina Reader (when WebFetch is blocked)
+
+Some sites (Zomato, Cloudflare-protected sites, heavy-SPA apps, bot-blocked hosts) will time out or return empty content from `WebFetch`. **Do not retry the same URL more than once** — if a `WebFetch` call fails, errors, or returns obviously empty/challenge-page content, immediately fall back to **Jina Reader**, a free no-auth service that proxies the URL through a real headless browser and returns clean markdown.
+
+**How to use Jina Reader as a fallback:**
+
+Prefix the original URL with `https://r.jina.ai/` and call `WebFetch` again with the same prompt. Example:
+
+- Original (failed): `https://www.zomato.com/about`
+- Fallback: `https://r.jina.ai/https://www.zomato.com/about`
+
+```
+WebFetch(
+  url: "https://r.jina.ai/https://www.zomato.com/about",
+  prompt: "<same prompt as the original call>"
+)
+```
+
+**Fallback rules:**
+- Trigger the fallback on: timeout, network error, 403/429/503 response, or content that is clearly a bot-challenge / empty shell.
+- Only retry through Jina **once per URL**. If Jina also fails, mark that page as unreachable and continue with what you have.
+- Never retry the same bare URL 3+ times — that wastes context and time. One direct attempt → one Jina attempt → move on.
+- When you use the Jina fallback, briefly tell the user (e.g., "zomato.com blocked direct fetch — using Jina Reader proxy").
+
+If **every** page (direct + Jina fallback) is unreachable, stop and ask the user whether to proceed with a best-guess design based on the brand name (clearly marked as speculative in the DESIGN.md).
 
 ### Step 3 — Synthesize the design direction
 
@@ -264,4 +288,4 @@ This skill uses only built-in Claude Code tools:
 - `Bash` — for directory creation and HTML validation
 - `Read` / `Glob` — for reading reference implementations
 
-**No MCP server is required.** WebFetch handles all network access. If the user specifically wants an MCP server for this, explain that it would add install complexity without functional benefit — the skill is the right primitive.
+**No MCP server is required.** WebFetch handles all network access, with `https://r.jina.ai/<url>` as a free no-auth proxy fallback for bot-blocked sites. If the user specifically wants an MCP server for this, explain that it would add install complexity without functional benefit — the skill is the right primitive.
